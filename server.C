@@ -19,8 +19,42 @@
 #include "SIMPLESOCKET.H"
 
 
+
+class BunkerServer  : public TCPserver{
+public:
+    BunkerServer(int port, int bufferSize);
+
+protected:
+    string myResponse(string input);
+
+};
+
+
+
 int main(){
 	srand(time(nullptr));
-	TCPserver srv(2022,25);
+	BunkerServer srv(2023,25);
 	srv.run();
 }
+
+string BunkerServer::myResponse(string input){
+
+    if (0 == input.compare(0,6,"COORD[")){
+        return string("OK");
+    }else{
+        return string("UNKOWN-COMMAND");
+    }
+
+
+
+    return string("ERROR");
+
+}
+
+
+
+
+ BunkerServer::BunkerServer(int port, int bufferSize) : TCPserver(port, bufferSize){
+
+ }
+
