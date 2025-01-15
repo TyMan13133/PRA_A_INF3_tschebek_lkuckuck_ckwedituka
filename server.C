@@ -19,7 +19,7 @@
 
 #include "SIMPLESOCKET.H"
 #include "TASK1.H"
-
+#include <iostream>
 
 class BunkerServer  : public TCPserver{
 public:
@@ -57,9 +57,14 @@ string BunkerServer::myResponse(string input){
     return string("DONE");
 }
     if(input.compare(0,4,"PWD[") == 0){
+       int  posStart;
+       int posEnd;
+        posStart = input.find("[");
+        posEnd = input.find("]");
         string pwdGuess;
-        pwdGuess = input.substr(4,input.size() -5);
-        std::cout << "#" << pwdGuess << "#\n";
+        pwdGuess = string(input.substr(4,posEnd - posStart -1));
+
+        //std::cout << "#" << pwdGuess << "#\n";
 
         return (bb->input(pwdGuess));
     }
