@@ -21,7 +21,6 @@
 #define TASK1_H_
 
 #include <string>
-#include "SHA256.H"
 
 using namespace std;
 
@@ -44,7 +43,7 @@ namespace TASK1{
  *	\brief This contains all possible characters a password can contain
  *
  */
-const string SYMBOLS = "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmopqrstuvwxyz0123456789";
+const string SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmopqrstuvwxyz0123456789";
 
 /**
  *
@@ -53,7 +52,7 @@ const string SYMBOLS = "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmopqrstuvwxyz0123
  * \brief Defines the minimal length of a password
  *
  */
-const unsigned int MINIMAL_PWD_LENGTH = 4;
+const unsigned int MINIMAL_PWD_LENGTH = 3; //Länge des PW
 
 /**
  *
@@ -104,16 +103,14 @@ protected:
  */
 class BlackBoxSafe : public BlackBoxUnsafe{
 	/// \todo  Implementation of class BlackBoxSafe needs to be finalized.
+private:
+	//char * charSymbArray_;
+	//int lengthSymbArray_;
+	string randomPwd(int l);
 public:
-	BlackBoxSafe(int pwdLength, int symbSetSize) : BlackBoxUnsafe(pwdLength, symbSetSize){
-        pwd_ = sha256(pwd_);
-
-
-	};
-	virtual string input(string strPwd){
-       return  (BlackBoxUnsafe::input(sha256(strPwd)) );
-
-	};
+	BlackBoxSafe(int pwdLength, int symbSetSize);
+	string nextPassword(string oldPasswor, int symbSetSize, int currentPosition);
+	virtual string input(string strPwd);
 };
 
 
